@@ -1,0 +1,43 @@
+.card {
+	display: inline-flex;
+	align-items: center;
+    padding: 5px;
+    width: 200px;
+    margin: 10px;
+    background-color: rgb(74, 39, 37);
+  }
+
+
+a{
+	text-decoration: none;
+}
+
+.title_div{
+	align-items: center;
+	color: white;
+	
+	
+}
+
+.icon-centered{
+	display: flex;
+    justify-content: center;
+}
+
+.card span{
+	/* padding: 5px; */
+	align-items: center;
+	text-align: center;
+	color: white;
+}
+
+
+.icon-download:before {
+	content: "\e900";
+  }
+i{
+	font-size: 2.0rem;
+	color:white;
+	align-items: center;
+	width: 40px;
+  }
