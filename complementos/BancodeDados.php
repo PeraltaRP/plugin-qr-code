@@ -65,4 +65,16 @@ function leitura_bd()
     }
 }
 
-
+function consulta_banco_de_dados()
+{
+    global $wpdb;
+    $name_BD = $wpdb->prefix . "linksqrcode";
+    $resultado = $wpdb->get_results("SELECT titulo_exibicao FROM $name_BD");
+    if (empty($resultado)) {
+        echo ("O banco de dados esta vazio!");
+    } else {
+        return $resultado;
+        // $json = json_encode($resultado);
+        // echo $json;
+    }
+}
