@@ -13,9 +13,6 @@ require_once 'complementos/BancodeDados.php';
 require_once 'complementos/Gera_title.php';
 require_once 'complementos/Gera_qr_Code.php';
 require_once 'pagina_inicial.php';
-require_once 'complementos/ultimo_resultado.php';
-
-
 
 define("JQUERY_UI_WP_PATH", plugin_dir_path(__FILE__));
 define("JQUERY_UI_WP_URL", plugin_dir_url(__FILE__));
@@ -73,11 +70,9 @@ function wp_jquery_ui_callback_fn_autocomplete()
 
 function carrega_html()
 {
-    // $banco_dados_tainacan = leitura_bd();
+    $banco_dados_tainacan = leitura_bd();
 
-    // if ($banco_dados_tainacan == 'vazio') {
-        // echo ("Não existe resultados do Tainacan salvos no banco de dados");
-    // } else {
+   
         load_page();
-    // }
+    
 }

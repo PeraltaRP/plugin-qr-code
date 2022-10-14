@@ -50,8 +50,8 @@ function leitura_bd()
         echo ("vazio");
     }
     foreach ($resultado as $value) {
+       
         if (strpos($value->post_title, 'foi criado com o ID') == true) {
-            $posicao = strpos($value->post_title, 'ID');
             $id = explode(" ", $value->post_title);
             for ($x = 0; $x < count($id); $x++) {
                 if ($id[$x] == 'ID') {
@@ -59,7 +59,6 @@ function leitura_bd()
                     $link = $host . "wp-json/tainacan/v2/items/" . $id[$x + 1];
                     $titulo = gera_title($link);
                     $titulo_download = str_replace(" ", "_", $titulo) . ".svg";
-                    echo($titulo);
                     if ($titulo != NULL) {
                         insert_database($titulo, $titulo_download, $link);
                     }
@@ -67,6 +66,7 @@ function leitura_bd()
             }
         }
     }
+
 }
 
 
@@ -87,18 +87,27 @@ function consulta_banco_de_dados()
 
 
 
-function busca_banco_dados($item){
+function busca_banco_dados($item)
+{
 
     global $wpdb;
     $name_BD = $wpdb->prefix . "linksqrcode";
     $resultado = $wpdb->get_results("SELECT titulo_exibicao, titulo_download, link FROM $name_BD WHERE titulo_exibicao = '$item' ");
-    return($resultado);
+    return ($resultado);
 }
 
 
-function ultima_insercao(){
+function ultima_insercao($tipo_pedido)
+{
     global $wpdb;
     $name_BD = $wpdb->prefix . "linksqrcode";
-    $resultado = $wpdb->get_results("SELECT titulo_exibicao, titulo_download, link, data FROM $name_BD ORDER BY id DESC LIMIT 3");
-    return($resultado);
+    $resultado = $wpdb->get_results("SELECT titulo_exibicao, titulo_download, link, data FROM $name_BD ORDER BY id desc LIMIT 3");
+    if ($tipo_pedido == "ult_data") {
+        foreach ($resultado as $value) {
+            $ultima_data = $value->data;
+        }
+        return $ultima_data;
+    } else {
+        return ($resultado);
+    }
 }

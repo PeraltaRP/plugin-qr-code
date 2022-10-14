@@ -17,7 +17,20 @@ function load_page()
             <h1 class="mt-4 mb-4">Pesquisa Item Tainacan</h1>
 
             <h4>Ultima atualização </h4>
-            <?ultima_atualizacao()?>
+            <?
+            $resultado = ultima_insercao("ult_data");
+            echo $resultado;
+            ?>
+            <div>
+                <form action="" method="post">
+                    <input type="submit" value="Atualizar Banco de Dados" name="botao">
+                </form>
+                <?php
+                if (!empty($_POST['botao'])) {
+                  
+                    leitura_bd();
+                }
+                ?>
             </div>
             <div class="col-12">
                 <form name="calc" method="post" enctype="multipart/form-data" action="<?php $_SERVER['PHP_SELF'] ?>">
@@ -59,12 +72,11 @@ function load_page()
         <div class="footer">
             <h4>Ultimos itens inseridos</h4>
             <?
-            $resultado = ultima_insercao();
+            $resultado = ultima_insercao("null");
             foreach ($resultado as $value) {
                 $link = $value->link;
                 $titulo = $value->titulo_exibicao;
                 $download = $value->titulo_download;
-                $ultima_data = $value->data;
                 gera_qr_code($titulo, $download, $link);
             }
 
