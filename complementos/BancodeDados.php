@@ -1,5 +1,6 @@
 <?php
 
+// função para criar a tabela com dados para o plugin no bano de dados
 function create_table()
 {
     global $wpdb;
@@ -21,6 +22,7 @@ function create_table()
     }
 }
 
+// cada vez que o plugin for inicializado ele faz a leitura do banco de dados e guarda na sua propria tabela
 function insert_database($titulo, $titulo_download, $link)
 {
     global $wpdb;
@@ -37,6 +39,7 @@ function insert_database($titulo, $titulo_download, $link)
     );
 }
 
+// função responsavel por ler a tabela posts onde o tainacan publica os itens criados
 function leitura_bd()
 {
     global $wpdb;
@@ -47,7 +50,7 @@ function leitura_bd()
         echo ("vazio");
     }
     foreach ($resultado as $value) {
-        if (strpos($value->post_title, 'criado') == true) {
+        if (strpos($value->post_title, 'foi criado com o ID') == true) {
             $posicao = strpos($value->post_title, 'ID');
             $id = explode(" ", $value->post_title);
             for ($x = 0; $x < count($id); $x++) {
@@ -56,6 +59,7 @@ function leitura_bd()
                     $link = $host . "wp-json/tainacan/v2/items/" . $id[$x + 1];
                     $titulo = gera_title($link);
                     $titulo_download = str_replace(" ", "_", $titulo) . ".svg";
+                    echo($titulo);
                     if ($titulo != NULL) {
                         insert_database($titulo, $titulo_download, $link);
                     }
@@ -65,11 +69,13 @@ function leitura_bd()
     }
 }
 
+
+// função responsavel por criar o auto complete com dados ja inseridos dentro da tabela linksqrcode
 function consulta_banco_de_dados()
 {
     global $wpdb;
     $name_BD = $wpdb->prefix . "linksqrcode";
-    $resultado = $wpdb->get_results("SELECT titulo_exibicao FROM $name_BD");
+    $resultado = $wpdb->get_results("SELECT id , titulo_exibicao FROM $name_BD");
     if (empty($resultado)) {
         echo ("O banco de dados esta vazio!");
     } else {
@@ -77,4 +83,22 @@ function consulta_banco_de_dados()
         // $json = json_encode($resultado);
         // echo $json;
     }
+}
+
+
+
+function busca_banco_dados($item){
+
+    global $wpdb;
+    $name_BD = $wpdb->prefix . "linksqrcode";
+    $resultado = $wpdb->get_results("SELECT titulo_exibicao, titulo_download, link FROM $name_BD WHERE titulo_exibicao = '$item' ");
+    return($resultado);
+}
+
+
+function ultima_insercao(){
+    global $wpdb;
+    $name_BD = $wpdb->prefix . "linksqrcode";
+    $resultado = $wpdb->get_results("SELECT titulo_exibicao, titulo_download, link, data FROM $name_BD ORDER BY id DESC LIMIT 3");
+    return($resultado);
 }

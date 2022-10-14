@@ -12,8 +12,9 @@ require_once 'vendor/autoload.php';
 require_once 'complementos/BancodeDados.php';
 require_once 'complementos/Gera_title.php';
 require_once 'complementos/Gera_qr_Code.php';
-require_once 'html.php';
-require_once 'autocomplete.php';
+require_once 'pagina_inicial.php';
+require_once 'complementos/ultimo_resultado.php';
+
 
 
 define("JQUERY_UI_WP_PATH", plugin_dir_path(__FILE__));
@@ -40,42 +41,43 @@ function styles()
     // carrega icone dos cards
     wp_register_style('icon', plugins_url('stilos/assets/style.css', __FILE__));
     wp_enqueue_style('icon');
-
 }
-
 add_action('admin_init', 'styles');
 
 
-function jquery_ui_js_files() {
+function jquery_ui_js_files()
+{
 
     wp_enqueue_style("jquery-wp-css", JQUERY_UI_WP_URL . "assets/jquery-ui.min.css");
 
     wp_enqueue_script("jquery");
-    wp_enqueue_script("jquery-ui-accordion");
+
     wp_enqueue_script("jquery-ui-autocomplete");
-    wp_enqueue_script("jquery-ui-datepicker");
+
     wp_enqueue_script("custom-script", JQUERY_UI_WP_URL . "assets/script.js", array('jquery'), "1.0.0", true);
 }
 
 add_action("admin_enqueue_scripts", "jquery_ui_js_files");
 
 
-function wp_jquery_ui_callback_fn_autocomplete() {
-
+function wp_jquery_ui_callback_fn_autocomplete()
+{
     ob_start();
-
     include_once JQUERY_UI_WP_PATH . 'autocomplete.php';
     $template = ob_get_contents();
-
     ob_end_clean();
-
     echo $template;
 }
 
-function carrega_html(){
-    // leitura_bd();
-    load_page();
+
+
+function carrega_html()
+{
+    // $banco_dados_tainacan = leitura_bd();
+
+    // if ($banco_dados_tainacan == 'vazio') {
+        // echo ("Não existe resultados do Tainacan salvos no banco de dados");
+    // } else {
+        load_page();
+    // }
 }
-
-
-

@@ -1,15 +1,19 @@
-<?php 
+<?php
+
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 
-function gera_qr_code($link, $titulo, $titulo_download)
+function gera_qr_code($titulo, $titulo_download, $link)
 {
 
 ?>
 
     <?php
+    if (empty($titulo )) {
+        echo ("Dados para gerar Qr Code se encontram vazios!");
+    } else {
         $tamanho = 190;
         $margem = 3;
         $style = new RendererStyle($tamanho, $margem, null, null, null);
@@ -33,5 +37,5 @@ function gera_qr_code($link, $titulo, $titulo_download)
             </div>
         </div>
 <?php
+    }
 }
-
