@@ -20,9 +20,13 @@ register_activation_hook(__FILE__, 'create_table');
 
 add_action('admin_menu', 'qr_code_init');
 
+
+
 function qr_code_init()
 {
-    add_menu_page('Test Plugin Page', 'Teste Plugin', 'manage_options', 'test-plugin', 'carrega_html');
+    
+    add_menu_page('Qr Code Taincan Page', 'Qr Code Tainacan', 'manage_options', 'Qr Code Taincan', 'carrega_html',  plugin_dir_url( __FILE__ ) . 'stilos/icon-menu/icon.png
+    ' );
 }
 
 function styles()
@@ -70,9 +74,15 @@ function wp_jquery_ui_callback_fn_autocomplete()
 
 function carrega_html()
 {
-    $banco_dados_tainacan = leitura_bd();
-
-   
-        load_page();
-    
+    $inicio = consulta_banco_de_dados();
+    echo($inicio);
+    if($inicio == "null"){
+        echo("att banco");
+        leitura_bd();
+    }
+    $inicio = consulta_banco_de_dados();
+    if($inicio != "null"){
+        echo("banco salvo");
+    load_page();
+    }
 }

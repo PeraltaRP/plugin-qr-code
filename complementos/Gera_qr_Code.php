@@ -31,8 +31,8 @@ function gera_qr_code($titulo, $titulo_download, $link)
             <div class="title_div">
                 <p class="title"> <?= $titulo ?> </p>
 
-                <a href=<?= $titulo_download ?> download=<?= $titulo_download ?>>
-                    <div class="icon-centered"><i class="icon-download"></i></div>
+                <a class="a_link" href=<?= $titulo_download ?> download=<?= $titulo_download ?>>
+                    <div class="icon-centered"><i id="i-download" class="icon-download"></i></div>
                 </a>
             </div>
         </div>

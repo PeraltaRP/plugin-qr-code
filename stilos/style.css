@@ -8,7 +8,7 @@
   }
 
 
-a{
+.a_link{
 	text-decoration: none;
 }
 
@@ -35,7 +35,7 @@ a{
 .icon-download:before {
 	content: "\e900";
   }
-i{
+#i-download{
 	font-size: 2.0rem;
 	color:white;
 	align-items: center;
