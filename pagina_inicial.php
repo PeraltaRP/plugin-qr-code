@@ -28,7 +28,7 @@ function load_page()
                 <?php
                 if (!empty($_POST['botao'])) {
                   
-                    leitura_bd();
+                    get_post_tainacan();
                 }
                 ?>
             </div>
